@@ -1,12 +1,21 @@
 // AddToCart.js
-import React from 'react';
+import React, {useEffect} from 'react';
+import {toast} from 'react-toastify';
 
-function AddToCart({ setCount }) {
+function AddToCart({setCount}) {
+    const maxCart = 10;
 
     // Increment the cart count when the button is clicked
     function handleAddToCart() {
-        setCount(prevCount => prevCount + 1); // Increase the count by 1
-
+        setCount(prevCount => {
+            if (prevCount < maxCart) {
+                toast.success("Add To Cart successfully!");
+                return prevCount + 1; // Increase the count by 1
+            } else {
+                toast.error("Too muchhhh!!!");
+                return prevCount; // Không thay đổi giá trị của count nếu vượt quá maxCart
+            }
+        });
     }
 
     return (

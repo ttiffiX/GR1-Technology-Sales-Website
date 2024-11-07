@@ -1,18 +1,37 @@
 import React, {useState} from 'react';
-import '../../styles/App.css';
+// import '../../styles/App.css';
+import '../../styles/App.scss';
 import CartClicked from "../utils/CartClicked";
 import SearchBar from "../utils/SearchBar"
 import AddToCart from "../utils/AddToCart";
 import HandleDate from "../utils/HandleDate";
 import PRODUCTS from "./Product";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
     const [count, setCount] = useState(0); // Store the count in state
+
     return (
         <div className={"MyApp"}>
+            <ToastContainer
+                position="top-left"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className={"navigation"}>
                 <div className={"shopName"}>
                     <span>Magic Shop</span>
                 </div>
+                {/*<button className={"login-button"}>Login</button>*/}
+
             </div>
             <div className={"header"}>
                 <div className={"product"}>
@@ -43,7 +62,7 @@ function App() {
             <div className="product-grid">
                 {PRODUCTS.map((product) => (
                     <div className="product-item">
-                        <div className="pic" style={{backgroundImage: `url(${product.image})` }}></div>
+                        <div className="pic" style={{backgroundImage: `url(${product.image})`}}></div>
                         <div className="foodName">{product.name}</div>
                         <div className="price">{product.price}</div>
                         <AddToCart setCount={setCount}/>
