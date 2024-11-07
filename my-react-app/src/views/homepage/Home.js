@@ -1,17 +1,16 @@
 import React, {useState} from 'react';
 // import '../../styles/App.css';
 import '../../styles/App.scss';
-import CartClicked from "../utils/CartClicked";
+import CartClicked from "./homefunction/CartClicked";
 import SearchBar from "../utils/SearchBar"
-import AddToCart from "../utils/AddToCart";
-import HandleDate from "../utils/HandleDate";
-import PRODUCTS from "./Product";
-import { ToastContainer, toast } from 'react-toastify';
+import AddToCart from "./homefunction/AddToCart";
+import HandleDate from "./homefunction/HandleDate";
+import PRODUCTS from "../MyComponent/Product";
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function App() {
+function Home() {
     const [count, setCount] = useState(0); // Store the count in state
-
     return (
         <div className={"MyApp"}>
             <ToastContainer
@@ -75,4 +74,4 @@ function App() {
     );
 }
 
-export default App;
+export default Home
