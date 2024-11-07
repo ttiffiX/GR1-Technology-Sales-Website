@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
 function CurrentDateTime() {
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -17,8 +17,14 @@ function CurrentDateTime() {
     const month = currentDate.getMonth() + 1; // Get month (0-11, so add 1)
     const year = currentDate.getFullYear(); // Get the full year
 
+
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
     // Format the date as day/month/year
-    const formattedDate = `${day}/${month}/${year}`;
+    const formattedDate = `${monthNames[month - 1]} ${day}, ${year}`;
     return (
         <div>
             <span className={"date"}>{formattedDate}</span>
