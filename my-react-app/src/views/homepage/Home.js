@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
-// import '../../styles/App.css';
 import '../../styles/App.scss';
-import CartClicked from "./homefunction/CartClicked";
+import CartClicked from "../utils/CartClicked";
 import SearchBar from "../utils/SearchBar"
 import AddToCart from "./homefunction/AddToCart";
 import HandleDate from "./homefunction/HandleDate";
 import PRODUCTS from "../MyComponent/Product";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import HandleLogin from "../utils/HandleLogin";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 function Home() {
     const [count, setCount] = useState(0); // Store the count in state
@@ -29,7 +30,10 @@ function Home() {
                 <div className={"shopName"}>
                     <span>Magic Shop</span>
                 </div>
-                {/*<button className={"login-button"}>Login</button>*/}
+                <button className={"shop"}>Shop</button>
+                <span className={"aboutMe"}>About Me</span>
+                <HandleLogin/>
+                <CartClicked count={count}/>
 
             </div>
             <div className={"header"}>
@@ -69,7 +73,7 @@ function Home() {
 
                 ))}
             </div>
-            <CartClicked count={count}/>
+
         </div>
     );
 }
