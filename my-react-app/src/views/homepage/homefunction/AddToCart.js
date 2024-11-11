@@ -2,7 +2,7 @@
 import React, {useEffect} from 'react';
 import {toast} from 'react-toastify';
 
-function AddToCart({setCount}) {
+function AddToCart({setCount, stocked}) {
     const maxCart = 10;
 
     // Increment the cart count when the button is clicked
@@ -19,7 +19,10 @@ function AddToCart({setCount}) {
     }
 
     return (
-        <button className={"addToCart"} onClick={handleAddToCart}>Add To Cart</button>
+        <button className={`addToCart ${!stocked ? 'disabled' : ''}`}
+                onClick={handleAddToCart}
+                disabled={!stocked}
+        >Add To Cart</button>
     );
 }
 
