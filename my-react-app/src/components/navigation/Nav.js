@@ -1,6 +1,7 @@
-import HandleLogin from "./HandleLogin";
-import CartClicked from "./CartClicked";
+import HandleLogin from "../loginaction/HandleLogin";
+import CartClicked from "../cartaction/CartClicked";
 import React from "react";
+import "./Nav.scss"
 
 function Nav({count}) {
     return (

@@ -1,11 +1,6 @@
 import React from "react";
-import '../../styles/App.scss';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
+import '../../App.scss';
+
 function HandleLogin(){
 
     return(
