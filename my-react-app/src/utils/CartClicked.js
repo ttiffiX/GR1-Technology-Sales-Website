@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 // import '../../styles/App.css';
-import '../../App.scss';
-
+// import '../App.scss';
+import '../components/navigation/Nav.scss'
 function CartClicked({count}) {
     const [color, setColor] = useState('white'); // Màu chữ mặc định
     const [isChanging, setIsChanging] = useState(false); // Kiểm tra xem màu có thay đổi không
