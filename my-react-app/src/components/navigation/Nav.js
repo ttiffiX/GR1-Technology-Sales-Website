@@ -1,19 +1,15 @@
-import HandleLogin from "../loginaction/HandleLogin";
-import CartClicked from "../cartaction/CartClicked";
+import CartClicked from "../../utils/CartClicked";
 import React from "react";
 import "./Nav.scss"
+import {Link, NavLink} from "react-router-dom";
 
 function Nav({count}) {
     return (
         <div className={"navigation"}>
-            <button className={"shopName"}>
-                Magic Shop
-            </button>
-            <button className={"shop"}>Shop</button>
-            <button>
-                <span className={"aboutMe"}>About Me</span>
-            </button>
-            <HandleLogin/>
+            <Link to="/" className="shopName">Magic Shop</Link>
+            <Link to="/" className={"shop"}>Shop</Link>
+            <Link to="/Aboutme" className={"aboutMe"}>About Me</Link>
+            <Link to="/Login" className={"login-button"}>Login</Link>
             <CartClicked count={count}/>
         </div>
     );

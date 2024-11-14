@@ -1,5 +1,5 @@
 import React from 'react';
-import {useToast} from "../Toast/Toast";
+import {useToast} from "../components/Toast/Toast";
 
 function AddToCart({ setCount, stocked }) {
     const maxCart = 10;

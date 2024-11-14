@@ -1,5 +1,5 @@
 import React from 'react';
-import AddToCart from '../cartaction/AddToCart';
+import AddToCart from '../../utils/AddToCart';
 import './ProductGrid.scss';
 
 function ProductGrid({products, setCount}) {
