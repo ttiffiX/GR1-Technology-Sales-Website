@@ -1,3 +1,5 @@
+import PRODUCTS from "../components/Products";
+
 export const filterProductsByCategory = (products, category) => {
     if (!category) return products;
     return products.filter(product => product.category === category);
@@ -20,4 +22,13 @@ export const filterProducts = (products, searchText, inStockOnly, category) => {
         const matchesCategory = category ? product.category === category : true;
         return matchesText && matchesStock && matchesCategory;
     });
+};
+
+// Hàm cập nhật bộ lọc sản phẩm
+export const updateFilteredProducts = (searchText, inStockOnly, category, order) => {
+    let filtered = filterProducts(PRODUCTS, searchText, inStockOnly, category);
+    if (order) {
+        filtered = sortProducts(filtered, order);
+    }
+    return filtered;
 };

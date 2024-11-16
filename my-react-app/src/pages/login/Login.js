@@ -4,7 +4,7 @@ import './Login.scss'
 import {Link} from "react-router-dom";
 
 function Login() {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
@@ -12,7 +12,7 @@ function Login() {
         e.preventDefault();
 
         // Giả lập quá trình xác thực
-            if (email === 'admin@example.com' && password === 'password123') {
+        if (username === 'admin' && password === '123456') {
             alert('Login Successful!');
             setError('');
         } else {
@@ -30,13 +30,13 @@ function Login() {
                     {error && <div className="login_login-error">{error}</div>}
 
                     <div className="login_input-group">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="username">Username</label>
                         <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email"
+                            type="text"
+                            id="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Enter your username"
                             required
                         />
                     </div>
@@ -58,7 +58,8 @@ function Login() {
                     </button>
 
                     <div className="login_register-link">
-                        <p>Don't have an account? <Link to="/Register" className="login_register-button">Sign up here</Link></p>
+                        <p>Don't have an account? <Link to="/Register" className="login_register-button">Sign up
+                            here</Link></p>
                     </div>
                 </form>
             </div>

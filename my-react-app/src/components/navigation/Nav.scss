@@ -67,6 +67,7 @@
       color: $background-color;
       @include flex-center;
       user-select: none;
+      text-decoration: none;
     }
   }
 
