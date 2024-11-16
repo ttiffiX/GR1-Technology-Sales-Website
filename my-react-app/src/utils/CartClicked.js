@@ -2,9 +2,12 @@ import React, {useEffect, useState} from 'react';
 // import '../../styles/App.css';
 // import '../App.scss';
 import '../components/navigation/Nav.scss'
+import {useNavigate} from 'react-router-dom';
+
 function CartClicked({count}) {
     const [color, setColor] = useState('white'); // Màu chữ mặc định
     const [isChanging, setIsChanging] = useState(false); // Kiểm tra xem màu có thay đổi không
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (count > 0) {
@@ -20,8 +23,9 @@ function CartClicked({count}) {
         }
     }, [count]); // Chạy lại khi count thay đổi
 
-    function handleClick() {
-        window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
+    const handleClick = () => {
+        // window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
+        navigate('/Cart',{ state: { count } });
     }
 
     return (
