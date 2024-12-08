@@ -1,36 +1,30 @@
-import React, {useState} from "react";
-import PRODUCTS from "../components/Products";
-import {updateFilteredProducts} from "../utils/FilterProduct";
+import { useState, useEffect } from "react";
+import { updateFilteredProducts } from "../utils/FilterProduct";
 
-function useProductFilter() {
+function useProductFilter(products) {
     const [count, setCount] = useState(0);
     const [searchText, setSearchText] = useState('');
     const [inStockOnly, setInStockOnly] = useState(false);
     const [activeOrder, setActiveOrder] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('');
-    const [filteredProducts, setFilteredProducts] = useState(PRODUCTS);
+    const [filteredProducts, setFilteredProducts] = useState(products);
 
+    // Cập nhật filteredProducts khi products thay đổi
+    useEffect(() => {
+        setFilteredProducts(updateFilteredProducts(products, searchText, inStockOnly, selectedCategory, activeOrder));
+    }, [products, searchText, inStockOnly, selectedCategory, activeOrder]);
 
-    // Hàm xử lý lọc sản phẩm
     const handleFilterChange = (searchText, inStockOnly) => {
         setSearchText(searchText);
         setInStockOnly(inStockOnly);
-        const updateProducts = updateFilteredProducts(searchText, inStockOnly, selectedCategory, activeOrder);
-        setFilteredProducts(updateProducts);
     };
 
-    // Hàm xử lý khi nhấn vào nút "Price ASC" hoặc "Price DESC"
     const handleSort = (order) => {
         setActiveOrder(order);
-        const updateProducts = updateFilteredProducts(searchText, inStockOnly, selectedCategory, order);
-        setFilteredProducts(updateProducts);
     };
 
-    // Hàm xử lý khi chọn category
     const handleCategoryChange = (category) => {
         setSelectedCategory(category);
-        const updateProducts = updateFilteredProducts(searchText, inStockOnly, category, activeOrder);
-        setFilteredProducts(updateProducts);
     };
 
     return {
@@ -45,4 +39,4 @@ function useProductFilter() {
     };
 }
 
-export default useProductFilter
+export default useProductFilter;
