@@ -9,18 +9,18 @@ const CARTS = [
     {
         id: 1,
         category: "Laptop",
-        price: 20490000,
+        price: 20490000 ,
         stocked: true,
         name: "Laptop ASUS TUF Gaming F15 FX507ZC4-HN095W",
-        image: Lap1
+        image: "Lap1-ASUS-TUF-F15.png"
     },
     {
         id: 2,
         category: "Laptop",
-        price: 20990000,
+        price: 20990000 ,
         stocked: true,
         name: "Laptop Lenovo LOQ 15ARP9 83JC007HVN",
-        image: Lap2
+        image: "Lap2-Lenovo-LOQ.png"
     },
     {
         id: 3,
@@ -28,7 +28,15 @@ const CARTS = [
         price: 16390000,
         stocked: false,
         name: "Laptop Dell Inspiron 15 3520",
-        image: Lap3
+        image:"Lap3-DELL-inspiron-15.png"
+    },
+    {
+        id: 4,
+        category: "Mouse",
+        price: 745000,
+        stocked: true,
+        name: "Logitech G304 Lightspeed",
+        image: "Mouse4-Logitech-G304.png"
     },
 ];
 export default CARTS
