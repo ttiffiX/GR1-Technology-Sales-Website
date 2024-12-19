@@ -10,7 +10,10 @@ import Cart from "../pages/Cart/Cart";
 
 function RouterPages() {
     return (
-        <Router>
+        <Router future={{
+            v7_relativeSplatPath: true, // Bật thay đổi liên quan đến splat path
+            v7_startTransition: true,  // Bật sử dụng React.startTransition
+        }}>
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
