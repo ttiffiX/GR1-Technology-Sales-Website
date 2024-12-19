@@ -7,11 +7,20 @@ function ProductGrid({products, setCount}) {
     const formatPrice = (price) => {
         return new Intl.NumberFormat('vi-VN').format(price) + ' đ'; // Định dạng giá theo kiểu Việt Nam
     };
+
+    const getImage = (imageName) => {
+        try {
+            return require(`../../assets/images/${imageName}`);
+        } catch (error) {
+            return ''; // Trả về đường dẫn mặc định nếu không tìm thấy ảnh
+        }
+    };
+    
     return (
         <div className="product-grid">
             {products.map((product) => (
-                <div className={`product-item ${product.stocked ? '' : 'out-of-stock'}`} key={product.name}>
-                    <div className="pic" style={{backgroundImage: `url(${product.image})`}}></div>
+                <div className={`product-item ${product.stocked ? '' : 'out-of-stock'}`} key={product.product_id}>
+                    <div className="pic" style={{backgroundImage: `url(${getImage(product.image)})`}}></div>
                     <div className="techName">{product.name}</div>
                     <div className="price">{formatPrice(product.price)}</div>
                     <AddToCart setCount={setCount} stocked={product.stocked}/>

@@ -1,9 +1,9 @@
-import Lap1 from '../assets/images/ASUS-TUF-F15.png'
-import Lap2 from '../assets/images/Lap-LOQ-15ARP9.png'
-import Lap3 from '../assets/images/DELL-inspiron-15-3520.png'
-import Mouse4 from '../assets/images/mouse.png'
-import Keyboard5 from '../assets/images/E-DRA-EK375-Alpha-Đen-Đỏ.png'
-import Keyboard6 from '../assets/images/AULA-F75-đen.png'
+import Lap1 from '../assets/images/Lap1-ASUS-TUF-F15.png'
+import Lap2 from '../assets/images/Lap2-Lenovo-LOQ.png'
+import Lap3 from '../assets/images/Lap3-DELL-inspiron-15.png'
+import Mouse4 from '../assets/images/Mouse4-Logitech-G304.png'
+import Keyboard5 from '../assets/images/Keyboard5-E-DRA-EK375.png'
+import Keyboard6 from '../assets/images/Keyboard6-AULA-F75.png'
 
 const CARTS = [
     {

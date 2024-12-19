@@ -1,5 +1,3 @@
-import PRODUCTS from "../components/Products";
-
 export const filterProductsByCategory = (products, category) => {
     if (!category) return products;
     return products.filter(product => product.category === category);
@@ -25,8 +23,8 @@ export const filterProducts = (products, searchText, inStockOnly, category) => {
 };
 
 // Hàm cập nhật bộ lọc sản phẩm
-export const updateFilteredProducts = (searchText, inStockOnly, category, order) => {
-    let filtered = filterProducts(PRODUCTS, searchText, inStockOnly, category);
+export const updateFilteredProducts = (products, searchText, inStockOnly, category, order) => {
+    let filtered = filterProducts(products, searchText, inStockOnly, category);
     if (order) {
         filtered = sortProducts(filtered, order);
     }
