@@ -32,9 +32,9 @@ function CartGrid({products, setCount}) {
                 </div>
             ))}
             <div className="checkout-summary-placeOrder">
-                <div className="header-placeOrder">Order summary</div>
+                <div className="header-placeOrder">Total</div>
                 <div className="total-container-placeOrder">
-                    <span className="label-placeOrder">Total:</span>
+                    {/*<span className="label-placeOrder">Total:</span>*/}
                     <span className="amount-placeOrder">{formatPrice(20000000)}</span>
                 </div>
                 <button className="payment-button-placeOrder">
