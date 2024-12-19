@@ -7,9 +7,10 @@ import Nav from "../../components/navigation/Nav";
 import Header from "../../components/header/Header";
 import useProductFilter from "../../hooks/useProductFilter";
 import useFetchProducts from "../../api/ProductAPI";
+import products from "../../components/Products";
 
 function Home() {
-    const { products, loading, error } = useFetchProducts();
+    // const { products, loading, error } = useFetchProducts();
     const {
         count,
         setCount,
@@ -21,8 +22,8 @@ function Home() {
         handleCategoryChange,
     } = useProductFilter(products);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
+    // if (loading) return <p>Loading...</p>;
+    // if (error) return <p>{error}</p>;
     return (
         <div className={"MyApp"}>
 
