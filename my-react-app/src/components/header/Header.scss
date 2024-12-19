@@ -34,7 +34,7 @@
     position: absolute;
     left: 96px;
     right: 96px;
-    bottom: 0px;
+    bottom: 0;
     height: 1px;
     background: $divider-color;
   }
@@ -50,6 +50,9 @@
     font-weight: 300;
     font-size: $font-size-date;
     color: $text-in-header-color;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
 
   /* Cấu trúc chung cho các nút chip */
@@ -78,6 +81,9 @@
     &.chip-price-desc {
       right: 210px;
       bottom: 33px;
+    }
+    @media (max-width: 1450px) {
+      display: none;
     }
   }
 
@@ -122,6 +128,9 @@
     font-size: $font-size-base;
     line-height: 130%;
     cursor: pointer;
+    @media (max-width: 1200px) {
+      display: none;
+    }
   }
 
   /* Dropdown */

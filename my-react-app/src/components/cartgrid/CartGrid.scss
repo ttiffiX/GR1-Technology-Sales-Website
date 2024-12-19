@@ -5,7 +5,7 @@
 // Product Grid
 .cart-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(600px, 100%)); /* Giữ cột đồng nhất */
+  grid-template-columns: repeat(auto-fill, minmax(100px, 100%)); /* Giữ cột đồng nhất */
   gap: 24px;
   padding: 32px;
   max-width: 50%;
@@ -148,12 +148,12 @@
     align-items: center; /* Căn giữa theo chiều dọc */
     gap: 5px; /* Khoảng cách giữa label và amount */
 
-    .label-placeOrder {
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 16px;
-      color: #000000;
-    }
+    //.label-placeOrder {
+    //  font-family: 'Inter', sans-serif;
+    //  font-weight: 600;
+    //  font-size: 16px;
+    //  color: #000000;
+    //}
 
     .amount-placeOrder {
       font-family: 'Inter', sans-serif;

@@ -43,6 +43,9 @@
 
     text-decoration: none; /* Removes underline */
     user-select: none;
+    @media (max-width: 650px) {
+      display: none;
+    }
   }
 
   /* Cart button */
@@ -97,11 +100,16 @@
 
     text-decoration: none; /* Removes underline */
     user-select: none;
+    @media (max-width: 750px) {
+      display: none;
+    }
   }
 
   /* About Me */
   .aboutMe {
-
+    @media (max-width: 850px) {
+      display: none;
+    }
     position: absolute;
     width: 74px;
     height: 21px;
