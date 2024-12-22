@@ -43,7 +43,7 @@ function CartGrid({products, setCount}) {
                 </div>
                 <button className="payment-button-placeOrder">
                     Place Order
-                    <div className="icon-placeOrder">-></div>
+                    <div className="icon-placeOrder">→</div>
                 </button>
             </div>
         </div>
