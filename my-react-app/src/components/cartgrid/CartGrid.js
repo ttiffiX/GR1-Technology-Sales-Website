@@ -18,7 +18,10 @@ function CartGrid({products, setCount}) {
     return (
         <div className="cart-grid">
             {products.map((product) => (
-                <div className="cart-item" key={product.product_id}>
+                <div className="cart-item" key={product.cart_id}>
+                    <button className="cart-delete-button">
+                        X
+                    </button>
                     <div className="cart-pic" style={{backgroundImage: `url(${getImage(product.image)})`}}></div>
                     <div className={"cart-content"}>
                         <div className="cart-techName">{product.name}</div>
@@ -28,6 +31,7 @@ function CartGrid({products, setCount}) {
                             <div className="quantity-value">1</div>
                             <button className="quantity-btn">+</button>
                         </div>
+
                     </div>
                 </div>
             ))}
