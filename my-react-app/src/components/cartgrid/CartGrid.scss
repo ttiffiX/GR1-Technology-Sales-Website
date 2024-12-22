@@ -31,9 +31,30 @@
   text-align: center;
   transition: transform 0.3s ease;
   //height: 100%;
+  position: relative;
 
-  &:hover {
-    transform: scale(1.02);
+
+  /* Nút Xóa */
+  .cart-delete-button {
+    position: absolute; /* Định vị nút X theo cha */
+    top: 8px; /* Khoảng cách từ trên */
+    right: 8px; /* Khoảng cách từ phải */
+    width: 24px;
+    height: 24px;
+    color: $primary-color;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+
+    &:hover {
+      color: #f30400;
+    }
   }
 
   .cart-pic {
@@ -80,7 +101,7 @@
     gap: 12px; /* Khoảng cách giữa các phần tử */
     margin: 16px 0 16px;
     @media (max-width: 1000px) {
-    margin: 8px 0 8px;
+      margin: 8px 0 8px;
     }
 
     .quantity-btn {
@@ -90,8 +111,8 @@
       width: 32px; /* Kích thước nút */
       height: 32px;
       border: 1px solid $divider-color;
-      background-color: $background-color;
-      color: $primary-color;
+      background-color: $primary-color;
+      color: #fff;
       border-radius: 4px;
       font-weight: bold;
       font-size: 18px;
@@ -99,7 +120,7 @@
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: $hover-color; /* Màu khi hover */
+        background-color: $secondary-color; /* Màu khi hover */
       }
     }
 
@@ -118,7 +139,7 @@
   // Đưa summary vào bên phải của màn hình, căn phải
   position: fixed;
   top: 293px;
-  right: 7%;  // Đưa phần tử sang phía bên phải của màn hình
+  right: 7%; // Đưa phần tử sang phía bên phải của màn hình
   height: 25%;
   width: 30%;
   background: #fafaf5;
@@ -139,7 +160,7 @@
     font-weight: 600;
     font-size: 20px;
     line-height: 130%;
-    color: #000000;
+    color: $primary-color;
   }
 
   .total-container-placeOrder {
@@ -159,10 +180,9 @@
       font-family: 'Inter', sans-serif;
       font-weight: 600;
       font-size: 16px;
-      color: #000000;
+      color: $primary-color;
     }
   }
-
 
 
   .payment-button-placeOrder {
@@ -170,7 +190,7 @@
     justify-content: space-between;
     align-items: center;
     height: 48px;
-    background: #426b1f;
+    background-color: $primary-color;
     border: none;
     border-radius: 8px;
     padding: 0 16px;
@@ -179,6 +199,10 @@
     font-weight: 600;
     font-size: 16px;
     cursor: pointer;
+
+    &:hover {
+    background-color: $secondary-color;
+  }
 
     .icon-placeOrder {
       width: 32px;
