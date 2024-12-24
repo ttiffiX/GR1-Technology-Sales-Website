@@ -6,6 +6,7 @@ import Login from "../pages/login/Login";
 import Register from "../pages/login/Register";
 import AboutMe from "../pages/aboutme/AboutMe";
 import Cart from "../pages/Cart/Cart";
+import Profile from "../pages/profile/Profile";
 
 
 function RouterPages() {
@@ -20,6 +21,7 @@ function RouterPages() {
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/Aboutme" element={<AboutMe/>}/>
                 <Route path="/Cart" element={<Cart/>}/>
+                <Route path="/profile" element={<Profile/>}/>
             </Routes>
         </Router>
     );
