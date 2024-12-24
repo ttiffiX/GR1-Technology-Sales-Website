@@ -53,8 +53,7 @@ function Nav({count}) {
             )}
             <CartClicked count={count}/>
         </div>
-    )
-        ;
+    );
 }
 
 export default Nav;
