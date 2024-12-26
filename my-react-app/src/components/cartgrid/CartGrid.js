@@ -1,7 +1,7 @@
 import React from 'react';
 import './CartGrid.scss';
 
-function CartGrid({products, setCount}) {
+function CartGrid({products}) {
     // Hàm định dạng giá (thêm dấu phân cách cho giá)
     const formatPrice = (price) => {
         return new Intl.NumberFormat('vi-VN').format(price) + ' đ'; // Định dạng giá theo kiểu Việt Nam
@@ -18,7 +18,7 @@ function CartGrid({products, setCount}) {
     return (
         <div className="cart-grid">
             {products.map((product) => (
-                <div className="cart-item" key={product.cart_id}>
+                <div className="cart-item" key={product.cartId}>
                     <button className="cart-delete-button">
                         X
                     </button>
@@ -28,7 +28,7 @@ function CartGrid({products, setCount}) {
                         <div className="cart-price">{formatPrice(product.price)}</div>
                         <div className="cart-actions">
                             <button className="quantity-btn">-</button>
-                            <div className="quantity-value">1</div>
+                            <div className="quantity-value">{product.quantity}</div>
                             <button className="quantity-btn">+</button>
                         </div>
 

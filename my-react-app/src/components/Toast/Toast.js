@@ -8,6 +8,7 @@ export const useToast = () => useContext(ToastContext);
 export const ToastProvider = ({ children }) => {
     const [showSuccessToast, setShowSuccessToast] = useState(false);
     const [showErrorToast, setShowErrorToast] = useState(false);
+    const [showErrorAddToast, setShowErrorAddToast] = useState(false);
 
     const showSuccess = () => {
         toast.success("Add To Cart successfully!");
@@ -15,8 +16,13 @@ export const ToastProvider = ({ children }) => {
     };
 
     const showError = () => {
-        toast.error("Too muchhhh!!!");
+        toast.error("Error When Adding!");
         setShowErrorToast(false);
+    };
+
+    const showErrorAdd = () => {
+        toast.error("Too muchhhh!!!");
+        setShowErrorAddToast(false);
     };
 
     // Gọi toast khi state thay đổi
@@ -32,8 +38,14 @@ export const ToastProvider = ({ children }) => {
         }
     }, [showErrorToast]);
 
+    React.useEffect(() => {
+        if (showErrorAddToast) {
+            showErrorAdd();
+        }
+    }, [showErrorAddToast]);
+
     return (
-        <ToastContext.Provider value={{ setShowSuccessToast, setShowErrorToast }}>
+        <ToastContext.Provider value={{ setShowSuccessToast, setShowErrorToast, setShowErrorAddToast }}>
             {children}
         </ToastContext.Provider>
     );

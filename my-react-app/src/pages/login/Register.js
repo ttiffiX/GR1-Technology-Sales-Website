@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Nav from "../../components/navigation/Nav";
 import './Register.scss';
+import {getCartItems} from "../../api/CartAPI";
 
 function Register() {
+    const {totalQuantity} = getCartItems();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,7 +24,7 @@ function Register() {
 
     return (
         <>
-            <Nav count={0} />
+            <Nav count={totalQuantity} />
             <div className="register_register-container">
                 <form className="register_register-form" onSubmit={handleSubmit}>
                     <h2 className="register_register-title">Register</h2>

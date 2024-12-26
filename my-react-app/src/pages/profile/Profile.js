@@ -2,12 +2,10 @@ import React, {useState} from "react";
 import "./Profile.scss";  // Chúng ta sẽ tạo file SCSS sau
 import avatarIcon from "../../assets/icon/ava.ico";
 import Nav from "../../components/navigation/Nav";
-import {useLocation} from "react-router-dom";
+import {getCartItems} from "../../api/CartAPI";
 
 const Profile = () => {
-    const location = useLocation();
-    const count = location.state?.count || 0;
-
+    const {totalQuantity} = getCartItems();
     // Giả sử bạn đã có các dữ liệu người dùng như avatar, tên, v.v. từ API hoặc qua props.
     const [user, setUser] = useState({
         avatar: avatarIcon,
@@ -41,7 +39,7 @@ const Profile = () => {
 
     return (
         <div>
-            <Nav count={count}/>
+            <Nav count={totalQuantity}/>
             <div className="profile-container">
                 <div className="profile-left">
                     <div className="avatar">

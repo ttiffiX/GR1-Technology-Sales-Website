@@ -2,8 +2,10 @@ import React, {useState} from "react";
 import Nav from "../../components/navigation/Nav";
 import './Login.scss'
 import {Link} from "react-router-dom";
+import {getCartItems} from "../../api/CartAPI";
 
 function Login() {
+    const {totalQuantity} = getCartItems();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -22,7 +24,7 @@ function Login() {
 
     return (
         <>
-            <Nav count={0}/>
+            <Nav count={totalQuantity}/>
             <div className="login_login-container">
                 <form className="login_login-form" onSubmit={handleSubmit}>
                     <h2 className="login_login-title">Login</h2>

@@ -1,24 +1,39 @@
 import React from 'react';
 import {useToast} from "../components/Toast/Toast";
+import {addCartItem} from "../api/CartAPI";
 
-function AddToCart({ setCount, stocked }) {
+
+function AddToCart({product_id, count, stocked}) {
+
     const maxCart = 10;
-
+    let check = false;
     // Increment the cart count when the button is clicked
-    const { setShowSuccessToast, setShowErrorToast } = useToast(); // Sử dụng context để hiển thị toast
+    const {setShowSuccessToast, setShowErrorToast, setShowErrorAddToast} = useToast(); // Sử dụng context để hiển thị toast
+    const {addItem, loading} = addCartItem();
 
-    // Increment the cart count when the button is clicked
-    function handleAddToCart() {
-        setCount((prevCount) => {
+    const handleAddToCart = async () => {
+
+        count((prevCount) => {
             if (prevCount < maxCart) {
-                setShowSuccessToast(true); // Đặt state trong ToastContext để hiển thị success toast
-                return prevCount + 1; // Increase the count by 1
-            } else {
-                setShowErrorToast(true); // Đặt state trong ToastContext để hiển thị error toast
-                return prevCount; // Không thay đổi giá trị của count nếu vượt quá maxCart
-            }
+                check = true;
+                return prevCount + 1;
+            } else return prevCount;
         });
-    }
+
+        try {
+            // Gửi request thêm vào giỏ
+            if (check) {
+                await addItem(product_id, 1);
+                setShowSuccessToast(true); // Hiển thị toast thành công
+            } else setShowErrorAddToast(true);
+        } catch (err) {
+            console.error("Error adding to cart:", err);
+            setShowErrorToast(true); // Hiển thị toast lỗi
+        }
+    };
+
+
+    if (loading) return <p>Adding...</p>;
 
     return (
         <button
