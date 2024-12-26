@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { updateFilteredProducts } from "../utils/FilterProduct";
 
 function useProductFilter(products) {
-    const [count, setCount] = useState(0);
     const [searchText, setSearchText] = useState('');
     const [inStockOnly, setInStockOnly] = useState(false);
     const [activeOrder, setActiveOrder] = useState(null);
@@ -28,8 +27,6 @@ function useProductFilter(products) {
     };
 
     return {
-        count,
-        setCount,
         activeOrder,
         selectedCategory,
         filteredProducts,

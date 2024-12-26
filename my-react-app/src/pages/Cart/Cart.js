@@ -1,27 +1,28 @@
 import React from "react";
 import Nav from "../../components/navigation/Nav";
 import Header from "../../components/header/Header";
-import {useLocation} from "react-router-dom";
 import CartGrid from "../../components/cartgrid/CartGrid";
 import useProductFilter from "../../hooks/useProductFilter";
-import CartProducts from "../../components/CartProducts";
+import {getCartItems} from "../../api/CartAPI";
 
 function Cart(){
-    const location = useLocation();
-    const count = location.state?.count || 0;
+
+    // Sử dụng hook useCartAPI để lấy các giá trị
+    const { cartItems,totalQuantity, loading, error } = getCartItems();
     const {
-        // count,
-        setCount,
         activeOrder,
         selectedCategory,
         filteredProducts,
         handleFilterChange,
         handleSort,
         handleCategoryChange,
-    } = useProductFilter(CartProducts);
+    } = useProductFilter(cartItems);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
     return(
         <>
-            <Nav count={count}/>
+            <Nav count={totalQuantity}/>
             <Header
                 title="Cart"
                 onFilterChange={handleFilterChange}
@@ -30,7 +31,7 @@ function Cart(){
                 selectedCategory={selectedCategory}
                 handleCategoryChange={handleCategoryChange}
             />
-            <CartGrid products={filteredProducts} setCount={setCount}/>
+            <CartGrid products={filteredProducts}/>
         </>
     )
 }

@@ -1,7 +1,7 @@
 import CartClicked from "../../utils/CartClicked";
 import React, {useState} from "react";
 import "./Nav.scss"
-import {Link, NavLink, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import avatarIcon from "../../assets/icon/ava.ico";
 
 function Nav({count}) {
@@ -18,6 +18,7 @@ function Nav({count}) {
         setUserName("John Doe"); // Gán tên user tạm thời
         setIsLoggedIn(true);
         setUserAvatar(avatarIcon); // Link demo ảnh đại diện
+        // navigate("/login");
     };
 
     // Xử lý đăng xuất
