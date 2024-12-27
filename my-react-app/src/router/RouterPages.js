@@ -19,8 +19,8 @@ function RouterPages() {
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
-                <Route path="/Aboutme" element={<AboutMe/>}/>
-                <Route path="/Cart" element={<Cart/>}/>
+                <Route path="/aboutme" element={<AboutMe/>}/>
+                <Route path="/cart" element={<Cart/>}/>
                 <Route path="/profile" element={<Profile/>}/>
             </Routes>
         </Router>

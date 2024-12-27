@@ -11,10 +11,12 @@ export const addCartItem = () => {
         setLoading(true);
         setError(null); // Reset lỗi trước khi gọi API
         try {
-            await axios.post(`${BASE_URL}/cart/add`, {
+            const response = await axios.post(`${BASE_URL}/cart/add`, {
                 productId,
                 quantity,
             });
+            console.log(response.data);
+            return response;
         } catch (err) {
             console.error('Error adding to cart:', err);
             setError(err.message || 'Failed to add item to cart'); // Cập nhật lỗi
@@ -36,14 +38,9 @@ export const getCartItems = () => {
     useEffect(() => {
         const fetchCart = async () => {
             try {
-                const response = await axios.get(`${BASE_URL}/cart`);
-                const items = response.data;
-
-                setCartItems(items);
-
-                // Tính tổng số lượng hàng hóa
-                const total = items.reduce((sum, item) => sum + item.quantity, 0);
-                setTotalQuantity(total);
+                const { totalQuantity, cartDTO } = await fetchCartItems();
+                setCartItems(cartDTO);
+                setTotalQuantity(totalQuantity)
             } catch (err) {
                 setError('Failed to fetch products');
             } finally {
@@ -55,3 +52,8 @@ export const getCartItems = () => {
 
     return { cartItems, totalQuantity, loading, error };
 };
+
+export const fetchCartItems = async () => {
+    const response = await axios.get(`${BASE_URL}/cart`)
+    return response.data;
+}
