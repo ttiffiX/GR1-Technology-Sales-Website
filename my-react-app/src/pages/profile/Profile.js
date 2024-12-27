@@ -14,8 +14,8 @@ const Profile = () => {
         age: 20,
         dob: "10-02-2004",
         gender: "Male",
-        phone: null,
-        address: null,
+        phone: "",
+        address: "",
         email: "sangpham1224@gmail.com",
     });
 
