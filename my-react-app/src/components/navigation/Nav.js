@@ -18,7 +18,7 @@ function Nav({count}) {
         setUserName("John Doe"); // Gán tên user tạm thời
         setIsLoggedIn(true);
         setUserAvatar(avatarIcon); // Link demo ảnh đại diện
-        // navigate("/login");
+        navigate("/login");
     };
 
     // Xử lý đăng xuất
@@ -35,7 +35,7 @@ function Nav({count}) {
         <div className={"navigation"}>
             <Link to="/" className="shopName">Magic Shop</Link>
             <Link to="/" className={"shop"}>Shop</Link>
-            <Link to="/Aboutme" className={"aboutMe"}>About Me</Link>
+            <Link to="/aboutme" className={"aboutMe"}>About Me</Link>
             {/* Hiển thị Login hoặc Tên User */}
             {isLoggedIn ? (
                 <div className="user-dropdown">

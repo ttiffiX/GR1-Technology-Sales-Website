@@ -3,7 +3,7 @@ import SearchBar from "../searchbar/SearchBar";
 import React from "react";
 import './Header.scss'
 
-function Header({ title , onFilterChange, activeOrder, handleSort, selectedCategory, handleCategoryChange }) {
+function Header({ title , onFilterChange, activeOrder, handleSort, selectedCategory, handleCategoryChange, modeSearch }) {
 
     return (
         <div className={"header"}>
@@ -11,7 +11,7 @@ function Header({ title , onFilterChange, activeOrder, handleSort, selectedCateg
                 <span>{title}</span>
             </div>
             <HandleDate/>
-            <SearchBar onFilterChange={onFilterChange}/>
+            <SearchBar onFilterChange={onFilterChange} modeSearch={modeSearch}/>
 
             <button
                 className={`chip-price chip-price-asc ${activeOrder === 'asc' ? 'active' : ''}`}

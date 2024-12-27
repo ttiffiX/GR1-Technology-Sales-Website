@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './SearchBar.scss';
 
-function SearchBar({ onFilterChange }) {
+function SearchBar({onFilterChange, modeSearch}) {
     const [searchText, setSearchText] = useState('');
     const [inStockOnly, setInStockOnly] = useState(false);
 
@@ -17,7 +17,7 @@ function SearchBar({ onFilterChange }) {
         onFilterChange(searchText, checked); // Gọi hàm khi checkbox thay đổi
     };
 
-    return (
+    return modeSearch === "product" ? (
         <div className="search-bar">
             <input
                 type="text"
@@ -34,6 +34,16 @@ function SearchBar({ onFilterChange }) {
                 />
                 {' '}Only show products in stock
             </label>
+        </div>
+    ) : (
+        <div className="search-bar">
+            <input
+                type="text"
+                placeholder="Search..."
+                value={searchText}
+                onChange={handleSearchTextChange}
+                className="search-input"
+            />
         </div>
     );
 }

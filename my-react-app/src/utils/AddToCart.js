@@ -1,31 +1,38 @@
 import React from 'react';
 import {useToast} from "../components/Toast/Toast";
-import {addCartItem} from "../api/CartAPI";
+import {addCartItem, fetchCartItems} from "../api/CartAPI";
 
 
 function AddToCart({product_id, count, stocked}) {
 
     const maxCart = 10;
-    let check = false;
     // Increment the cart count when the button is clicked
     const {setShowSuccessToast, setShowErrorToast, setShowErrorAddToast} = useToast(); // Sử dụng context để hiển thị toast
     const {addItem, loading} = addCartItem();
 
-    const handleAddToCart = async () => {
-
-        count((prevCount) => {
-            if (prevCount < maxCart) {
-                check = true;
-                return prevCount + 1;
-            } else return prevCount;
-        });
-
+    const refreshCart = async () => {
         try {
-            // Gửi request thêm vào giỏ
-            if (check) {
-                await addItem(product_id, 1);
-                setShowSuccessToast(true); // Hiển thị toast thành công
-            } else setShowErrorAddToast(true);
+            const {totalQuantity} = await fetchCartItems();
+            count(totalQuantity);
+        } catch (error) {
+            console.error("Failed to fetch cart items:", error);
+        }
+    };
+
+    const handleAddToCart = async () => {
+        try {
+            const {totalQuantity} = await fetchCartItems();
+            if (totalQuantity >= maxCart) {
+                setShowErrorAddToast(true)
+            } else {
+                const response = await addItem(product_id, 1); // Gửi request với số lượng = 1
+                console.log(response);
+
+                if (response) {
+                    setShowSuccessToast(true); // Hiển thị toast thành công
+                    await refreshCart();
+                }
+            }
         } catch (err) {
             console.error("Error adding to cart:", err);
             setShowErrorToast(true); // Hiển thị toast lỗi
