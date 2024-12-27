@@ -7,6 +7,7 @@ import Register from "../pages/login/Register";
 import AboutMe from "../pages/aboutme/AboutMe";
 import Cart from "../pages/Cart/Cart";
 import Profile from "../pages/profile/Profile";
+import Order from "../pages/order/Order";
 
 
 function RouterPages() {
@@ -22,6 +23,7 @@ function RouterPages() {
                 <Route path="/aboutme" element={<AboutMe/>}/>
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/profile" element={<Profile/>}/>
+                <Route path="/order" element={<Order/>}/>
             </Routes>
         </Router>
     );

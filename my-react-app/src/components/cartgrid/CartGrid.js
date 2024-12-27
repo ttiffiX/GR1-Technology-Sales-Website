@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './CartGrid.scss';
+import {useNavigate} from "react-router-dom";
 
 function CartGrid({products}) {
+    const navigate = useNavigate();
     // Hàm định dạng giá (thêm dấu phân cách cho giá)
     const formatPrice = (price) => {
         return new Intl.NumberFormat('vi-VN').format(price) + ' đ'; // Định dạng giá theo kiểu Việt Nam
@@ -23,6 +25,10 @@ function CartGrid({products}) {
             return ''; // Trả về đường dẫn mặc định nếu không tìm thấy ảnh
         }
     };
+
+    const PlaceOrder = () => {
+        navigate("/order");
+    }
 
     const handleDecrease = (productId) => {
         // setProducts((prevProducts) =>
@@ -71,8 +77,8 @@ function CartGrid({products}) {
                     {/*<span className="label-placeOrder">Total:</span>*/}
                     <span className="amount-placeOrder">{formatPrice(20000000)}</span>
                 </div>
-                <button className="payment-button-placeOrder">
-                    Place Order
+                <button className="payment-button-placeOrder" onClick={PlaceOrder}>
+                    Proceed to Checkout
                     <div className="icon-placeOrder">→</div>
                 </button>
             </div>

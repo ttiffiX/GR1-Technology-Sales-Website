@@ -3,9 +3,26 @@ import SearchBar from "../searchbar/SearchBar";
 import React from "react";
 import './Header.scss'
 
-function Header({ title , onFilterChange, activeOrder, handleSort, selectedCategory, handleCategoryChange, modeSearch }) {
+function Header({
+                    title,
+                    onFilterChange,
+                    activeOrder,
+                    handleSort,
+                    selectedCategory,
+                    handleCategoryChange,
+                    modeSearch,
+                    modeDisplay
+                }) {
 
-    return (
+    return modeDisplay === "order" ? (
+        <div className={"header"}>
+            <div className={"product"}>
+                <span>{title}</span>
+            </div>
+            <HandleDate/>
+            <div className={"divider"}/>
+        </div>
+    ) : (
         <div className={"header"}>
             <div className={"product"}>
                 <span>{title}</span>
@@ -51,6 +68,7 @@ function Header({ title , onFilterChange, activeOrder, handleSort, selectedCateg
             </div>
             <div className={"divider"}/>
         </div>
-    )
+    );
 }
+
 export default Header
