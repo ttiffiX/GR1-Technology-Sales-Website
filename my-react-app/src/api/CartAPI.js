@@ -17,9 +17,8 @@ export const addCartItem = () => {
             });
             return response.data;
         } catch (err) {
-            console.error('Error adding to cart:', err);
-            setError(err.message || 'Failed to add item to cart'); // Cập nhật lỗi
-            throw err; // Ném lỗi để component sử dụng hàm này có thể xử lý
+            setError(err.message || 'Failed to add item to cart');
+            throw err;
         } finally {
             setLoading(false); // Reset trạng thái loading
         }
@@ -66,7 +65,6 @@ export const updateItems = () => {
             });
             return response.data;
         } catch (error) {
-            console.error('Error incrementing item:', error.response?.data || error.message);
             throw new Error('Failed to increment item.');
         }
     };
@@ -79,9 +77,23 @@ export const updateItems = () => {
             });
             return response.data; // Phản hồi từ BE
         } catch (error) {
-            console.error('Error decrementing item:', error.response?.data || error.message);
             throw new Error('Failed to decrement item.');
         }
     }
     return {incItems, decItems};
 };
+
+export const removeCartItem = () => {
+    const removeItem = async (productId) => {
+        try {
+            const response = await axios.delete(`${BASE_URL}/cart/remove`, {
+                data: { productId },
+            });
+            return response.data;
+        } catch (err) {
+            throw new Error('Failed to remove item.');
+        }
+    }
+    return {removeItem};
+}
+

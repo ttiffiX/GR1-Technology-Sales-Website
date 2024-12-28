@@ -1,17 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import './CartGrid.scss';
 import {useNavigate} from "react-router-dom";
-import {fetchCartItems, updateItems} from "../../api/CartAPI";
+import {fetchCartItems, removeCartItem, updateItems} from "../../api/CartAPI";
 import {useToast} from "../Toast/Toast";
 
 function CartGrid({products, count}) {
     const maxCart = 10;
     const {setShowErrorToast, setShowErrorAddToast} = useToast(); // Sử dụng context để hiển thị toast
     const navigate = useNavigate();
+
     const {incItems, decItems} = updateItems();
     const [localProducts, setLocalProducts] = useState(products);
     const [showConfirmPopup, setShowConfirmPopup] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
+
+    const {removeItem} = removeCartItem();
 
     useEffect(() => {
         // Khi `products` thay đổi, cập nhật lại state localProducts
@@ -68,7 +71,7 @@ function CartGrid({products, count}) {
                 }
             }
         } catch (err) {
-            console.error("Error adding to cart:", err);
+            console.error("Error increasing item:", err);
             setShowErrorToast(true); // Hiển thị toast lỗi
         }
     }
@@ -113,7 +116,19 @@ function CartGrid({products, count}) {
         setShowConfirmPopup(false);
     }
 
-
+    const handleDelete = async (product_id) => {
+        try {
+            console.log(product_id)
+            const response = await removeItem(product_id);
+            console.log(response);
+            if (response) {
+                await refreshCart("");
+            }
+        } catch (err) {
+            console.error("Error removing item:", err);
+            setShowErrorToast(true); // Hiển thị toast lỗi
+        }
+    }
 
     return (
         <>
@@ -131,7 +146,7 @@ function CartGrid({products, count}) {
             <div className="cart-grid">
                 {localProducts.map((product) => (
                     <div className="cart-item" key={product.cartId}>
-                        <button className="cart-delete-button">
+                        <button className="cart-delete-button" onClick={() => handleDelete(product.productId)}>
                             X
                         </button>
                         <div className="cart-pic" style={{backgroundImage: `url(${getImage(product.image)})`}}></div>
@@ -152,7 +167,7 @@ function CartGrid({products, count}) {
                 <div className="checkout-summary-placeOrder">
                     <div className="header-placeOrder">Total</div>
                     <div className="total-container-placeOrder">
-                        <span className="amount-placeOrder">{formatPrice(20000000)}</span>
+                        <span className="amount-placeOrder">{formatPrice(localProducts.reduce((sum, item) => sum + item.price * item.quantity, 0))}</span>
                     </div>
                     <button className="payment-button-placeOrder" onClick={PlaceOrder}>
                         Proceed to Checkout
