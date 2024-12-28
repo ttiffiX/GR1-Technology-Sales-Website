@@ -10,25 +10,16 @@ function Header({
                     handleSort,
                     selectedCategory,
                     handleCategoryChange,
-                    modeSearch,
                     modeDisplay
                 }) {
 
-    return modeDisplay === "order" ? (
+    return modeDisplay === "product" ? (
         <div className={"header"}>
             <div className={"product"}>
                 <span>{title}</span>
             </div>
             <HandleDate/>
-            <div className={"divider"}/>
-        </div>
-    ) : (
-        <div className={"header"}>
-            <div className={"product"}>
-                <span>{title}</span>
-            </div>
-            <HandleDate/>
-            <SearchBar onFilterChange={onFilterChange} modeSearch={modeSearch}/>
+            <SearchBar onFilterChange={onFilterChange}/>
 
             <button
                 className={`chip-price chip-price-asc ${activeOrder === 'asc' ? 'active' : ''}`}
@@ -66,6 +57,14 @@ function Header({
                     </button>
                 </div>
             </div>
+            <div className={"divider"}/>
+        </div>
+    ) : (
+        <div className={"header"}>
+            <div className={"product"}>
+                <span>{title}</span>
+            </div>
+            <HandleDate/>
             <div className={"divider"}/>
         </div>
     );
