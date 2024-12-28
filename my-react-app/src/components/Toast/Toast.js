@@ -16,7 +16,7 @@ export const ToastProvider = ({ children }) => {
     };
 
     const showError = () => {
-        toast.error("Error When Adding!");
+        toast.error("An error has occurred!");
         setShowErrorToast(false);
     };
 
