@@ -43,7 +43,7 @@ function Home() {
                     handleSort={handleSort}
                     selectedCategory={selectedCategory}
                     handleCategoryChange={handleCategoryChange}
-                    modeSearch={"product"}
+                    modeDisplay={"product"}
                 />
 
 
