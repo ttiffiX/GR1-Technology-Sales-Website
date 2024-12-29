@@ -6,7 +6,7 @@ import {useToast} from "../Toast/Toast";
 
 function CartGrid({products, count}) {
     const maxCart = 10;
-    const {setShowErrorToast, setShowErrorAddToast} = useToast(); // Sử dụng context để hiển thị toast
+    const {triggerToast} = useToast();
     const navigate = useNavigate();
 
     const {incItems, decItems} = updateItems();
@@ -35,7 +35,7 @@ function CartGrid({products, count}) {
     };
 
     const PlaceOrder = () => {
-        navigate("/order");
+        navigate("/checkout");
     }
 
     const refreshCart = async (action) => {
@@ -61,18 +61,19 @@ function CartGrid({products, count}) {
         try {
             const {totalQuantity} = await fetchCartItems();
             if (totalQuantity >= maxCart) {
-                setShowErrorAddToast(true);
+                triggerToast("error", "Too muchhhh!!!")
             } else {
                 const response = await incItems(product_id, 1); // Gửi request với số lượng = 1
                 console.log(response);
 
                 if (response) {
                     await refreshCart("inc");
+                    triggerToast("success", response);
                 }
             }
         } catch (err) {
             console.error("Error increasing item:", err);
-            setShowErrorToast(true); // Hiển thị toast lỗi
+            triggerToast("error", err);
         }
     }
 
@@ -87,11 +88,12 @@ function CartGrid({products, count}) {
 
                 if (response) {
                     await refreshCart("dec");
+                    triggerToast("success", response);
                 }
             }
         } catch (err) {
             console.error("Error reducing item:", err);
-            setShowErrorToast(true); // Hiển thị toast lỗi
+            triggerToast("error", err)
         }
     }
 
@@ -101,10 +103,11 @@ function CartGrid({products, count}) {
             console.log(response);
             if (response) {
                 await refreshCart("");
+                triggerToast("success", response);
             }
         } catch (err) {
             console.error("Error reducing item:", err);
-            setShowErrorToast(true); // Hiển thị toast lỗi
+            triggerToast("error", err)
         } finally {
             setProductToDelete(null); // Reset sản phẩm cần xóa
             setShowConfirmPopup(false); // Đóng pop-up
@@ -122,16 +125,27 @@ function CartGrid({products, count}) {
             const response = await removeItem(product_id);
             console.log(response);
             if (response) {
+                triggerToast("success", response);
                 await refreshCart("");
             }
         } catch (err) {
             console.error("Error removing item:", err);
-            setShowErrorToast(true); // Hiển thị toast lỗi
+            triggerToast("success", err);
         }
+    }
+
+    const buyNow = () => {
+        navigate("/");
     }
 
     return (
         <>
+            {localProducts.length <= 0 && (
+                <div className="empty-cart-message">
+                    <p>Your cart is empty.</p>
+                    <button onClick={buyNow}>Buy Now!</button>
+                </div>
+            )}
             {showConfirmPopup && (
                 <div className="confirm-popup">
                     <div className="popup-content">
@@ -144,36 +158,42 @@ function CartGrid({products, count}) {
                 </div>
             )}
             <div className="cart-grid">
-                {localProducts.map((product) => (
-                    <div className="cart-item" key={product.cartId}>
-                        <button className="cart-delete-button" onClick={() => handleDelete(product.productId)}>
-                            X
-                        </button>
-                        <div className="cart-pic" style={{backgroundImage: `url(${getImage(product.image)})`}}></div>
-                        <div className={"cart-content"}>
-                            <div className="cart-techName">{product.name}</div>
-                            <div className="cart-price">{formatPrice(product.price)}</div>
-                            <div className="cart-actions">
-                                <button className="quantity-btn" onClick={() => handleDecrease(product)}>-
-                                </button>
-                                <div className="quantity-value">{product.quantity}</div>
-                                <button className="quantity-btn" onClick={() => handleIncrease(product.productId)}>+
-                                </button>
-                            </div>
+                {localProducts.length > 0 && (
+                    localProducts.map((product) => (
+                        <div className="cart-item" key={product.cartId}>
+                            <button className="cart-delete-button" onClick={() => handleDelete(product.productId)}>
+                                X
+                            </button>
+                            <div className="cart-pic"
+                                 style={{backgroundImage: `url(${getImage(product.image)})`}}></div>
+                            <div className={"cart-content"}>
+                                <div className="cart-techName">{product.name}</div>
+                                <div className="cart-price">{formatPrice(product.price)}</div>
+                                <div className="cart-actions">
+                                    <button className="quantity-btn" onClick={() => handleDecrease(product)}>-
+                                    </button>
+                                    <div className="quantity-value">{product.quantity}</div>
+                                    <button className="quantity-btn" onClick={() => handleIncrease(product.productId)}>+
+                                    </button>
+                                </div>
 
+                            </div>
                         </div>
+                    ))
+                )}
+                {localProducts.length > 0 && (
+                    <div className="checkout-summary-placeOrder">
+                        <div className="header-placeOrder">Total</div>
+                        <div className="total-container-placeOrder">
+                        <span
+                            className="amount-placeOrder">{formatPrice(localProducts.reduce((sum, item) => sum + item.price * item.quantity, 0))}</span>
+                        </div>
+                        <button className="payment-button-placeOrder" onClick={PlaceOrder}>
+                            Proceed to Checkout
+                            <div className="icon-placeOrder">→</div>
+                        </button>
                     </div>
-                ))}
-                <div className="checkout-summary-placeOrder">
-                    <div className="header-placeOrder">Total</div>
-                    <div className="total-container-placeOrder">
-                        <span className="amount-placeOrder">{formatPrice(localProducts.reduce((sum, item) => sum + item.price * item.quantity, 0))}</span>
-                    </div>
-                    <button className="payment-button-placeOrder" onClick={PlaceOrder}>
-                        Proceed to Checkout
-                        <div className="icon-placeOrder">→</div>
-                    </button>
-                </div>
+                )}
             </div>
         </>
     );

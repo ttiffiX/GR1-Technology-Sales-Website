@@ -1,51 +1,39 @@
-import React, { createContext, useContext, useState } from 'react';
-import { toast } from 'react-toastify';
+import React, {createContext, useContext, useState} from 'react';
+import {toast} from 'react-toastify';
 
 const ToastContext = createContext();
 
 export const useToast = () => useContext(ToastContext);
 
-export const ToastProvider = ({ children }) => {
-    const [showSuccessToast, setShowSuccessToast] = useState(false);
-    const [showErrorToast, setShowErrorToast] = useState(false);
-    const [showErrorAddToast, setShowErrorAddToast] = useState(false);
+export const ToastProvider = ({children}) => {
+    const [showToast, setShowToast] = useState(false);
+    const [toastInfo, setToastInfo] = useState({status: '', message: ''});
 
-    const showSuccess = () => {
-        toast.success("Add To Cart successfully!");
-        setShowSuccessToast(false);
+    const showMessage = (status, message) => {
+        if (status === "error") {
+            toast.error(message);
+        } else if (status === "success") {
+            toast.success(message);
+        } else {
+            toast.info(message);
+        }
+        setShowToast(false);
     };
 
-    const showError = () => {
-        toast.error("An error has occurred!");
-        setShowErrorToast(false);
+    React.useEffect(() => {
+        if (showToast) {
+            showMessage(toastInfo.status, toastInfo.message);
+            setShowToast(false);
+        }
+    }, [showToast, toastInfo]);
+
+    const triggerToast = (status, message) => {
+        setToastInfo({status, message});
+        setShowToast(true);
     };
-
-    const showErrorAdd = () => {
-        toast.error("Too muchhhh!!!");
-        setShowErrorAddToast(false);
-    };
-
-    // Gọi toast khi state thay đổi
-    React.useEffect(() => {
-        if (showSuccessToast) {
-            showSuccess();
-        }
-    }, [showSuccessToast]);
-
-    React.useEffect(() => {
-        if (showErrorToast) {
-            showError();
-        }
-    }, [showErrorToast]);
-
-    React.useEffect(() => {
-        if (showErrorAddToast) {
-            showErrorAdd();
-        }
-    }, [showErrorAddToast]);
 
     return (
-        <ToastContext.Provider value={{ setShowSuccessToast, setShowErrorToast, setShowErrorAddToast }}>
+        <ToastContext.Provider value={{triggerToast}}>
             {children}
         </ToastContext.Provider>
     );

@@ -61,75 +61,78 @@ const Order = () => {
                 title="Order"
                 modeDisplay="order"
             />
-            <div className={"orderPage"}>
-                {/* Form nhập thông tin khách hàng */}
-                <form className={"customerForm-order"} onSubmit={handlePlaceOrder}>
-                    <h2>Delivery Information</h2>
-                    <div className={"inputContainer"}>
-                        <label>Name:</label>
-                        <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            placeholder="Your Name"
-                            required
-                        />
-                    </div>
-                    <div className={"inputContainer"}>
-                        <label>Phone:</label>
-                        <input
-                            type="tel"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            placeholder="Phone"
-                            required
-                        />
-                    </div>
-                    <div className={"inputContainer"}>
-                        <label>Address:</label>
-                        <input
-                            type="text"
-                            name="address"
-                            value={formData.address}
-                            onChange={handleChange}
-                            placeholder="Address"
-                            required
-                        />
-                    </div>
-                    {/*</form>*/}
-                    <div className={"checkout-order"}>
-                        <div className={"totalPrice"}>
-                            <p>Total
-                                Price(Freeship): {formatPrice(cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0))}</p>
+            {cartItems.length > 0 ? (
+                <div className={"orderPage"}>
+                    {/* Form nhập thông tin khách hàng */}
+                    <form className={"customerForm-order"} onSubmit={handlePlaceOrder}>
+                        <h2>Delivery Information</h2>
+                        <div className={"inputContainer"}>
+                            <label>Name:</label>
+                            <input
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                placeholder="Your Name"
+                                required
+                            />
                         </div>
-                        <button type="submit">Place Order</button>
-                    </div>
-                </form>
-
-                {/* Hiển thị giỏ hàng */}
-                <div className={"cart-order"}>
-                    <h2>Products</h2>
-                    <div className={"cartItems"}>
-                        {cartItems.map((item) => (
-                            <div key={item.cartId} className={"cartItem"}>
-                                {/*<img src={item.image} alt={item.name}/>*/}
-                                <div className="cart-pic"
-                                     style={{backgroundImage: `url(${getImage(item.image)})`}}></div>
-                                <div className={"details"}>
-                                    <h3>{item.name}</h3>
-                                    <p>Price: {formatPrice(item.price)}</p>
-                                    <p>Quantity: {item.quantity}</p>
-                                </div>
+                        <div className={"inputContainer"}>
+                            <label>Phone:</label>
+                            <input
+                                type="number"
+                                maxLength={10}
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleChange}
+                                placeholder="Phone"
+                                required
+                            />
+                        </div>
+                        <div className={"inputContainer"}>
+                            <label>Address:</label>
+                            <input
+                                type="text"
+                                name="address"
+                                value={formData.address}
+                                onChange={handleChange}
+                                placeholder="Address"
+                                required
+                            />
+                        </div>
+                        {/*</form>*/}
+                        <div className={"checkout-order"}>
+                            <div className={"totalPrice"}>
+                                <p>Total
+                                    Price(Freeship): {formatPrice(cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0))}</p>
                             </div>
-                        ))}
+                            <button type="submit">Place Order</button>
+                        </div>
+                    </form>
+
+                    {/* Hiển thị giỏ hàng */}
+                    <div className={"cart-order"}>
+                        <h2>Products</h2>
+                        <div className={"cartItems"}>
+                            {cartItems.map((item) => (
+                                <div key={item.cartId} className={"cartItem"}>
+                                    {/*<img src={item.image} alt={item.name}/>*/}
+                                    <div className="cart-pic"
+                                         style={{backgroundImage: `url(${getImage(item.image)})`}}></div>
+                                    <div className={"details"}>
+                                        <h3>{item.name}</h3>
+                                        <p>Price: {formatPrice(item.price)}</p>
+                                        <p>Quantity: {item.quantity}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        {/*<button type="submit">Place Order</button>*/}
                     </div>
-                    {/*<button type="submit">Place Order</button>*/}
                 </div>
-
-
-            </div>
+            ) : (
+                <div/>
+            )}
         </>
     );
 };

@@ -263,5 +263,43 @@
   }
 }
 
+.empty-cart-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  height: 200px;
+  padding: 20px;
+  font-size: 1.2rem;
+  margin: 20px auto;
+  max-width: 400px;
+
+
+  p {
+    margin: 20px 0;
+    color: $primary-color;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 35px;
+  }
+
+  button {
+    padding: 5px 35px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: $primary-color;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: $secondary-color;
+    }
+  }
+}
+
+
 
 
