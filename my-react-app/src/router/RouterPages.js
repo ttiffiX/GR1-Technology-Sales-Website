@@ -23,7 +23,7 @@ function RouterPages() {
                 <Route path="/aboutme" element={<AboutMe/>}/>
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/profile" element={<Profile/>}/>
-                <Route path="/order" element={<Order/>}/>
+                <Route path="/checkout" element={<Order/>}/>
             </Routes>
         </Router>
     );

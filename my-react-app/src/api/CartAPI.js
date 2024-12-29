@@ -5,11 +5,9 @@ const BASE_URL = 'http://localhost:8080';
 
 export const addCartItem = () => {
     const [loading, setLoading] = useState(false); // Trạng thái loading
-    const [error, setError] = useState(null); // Trạng thái lỗi
 
     const addItem = async (productId, quantity) => {
         setLoading(true);
-        setError(null); // Reset lỗi trước khi gọi API
         try {
             const response = await axios.post(`${BASE_URL}/cart/add`, {
                 productId,
@@ -17,14 +15,13 @@ export const addCartItem = () => {
             });
             return response.data;
         } catch (err) {
-            setError(err.message || 'Failed to add item to cart');
-            throw err;
+            throw err.response.data;
         } finally {
             setLoading(false); // Reset trạng thái loading
         }
     };
 
-    return {addItem, loading, error};
+    return {addItem, loading};
 };
 
 export const getCartItems = () => {
@@ -65,7 +62,7 @@ export const updateItems = () => {
             });
             return response.data;
         } catch (error) {
-            throw new Error('Failed to increment item.');
+            throw error.response.data;
         }
     };
 
@@ -77,7 +74,7 @@ export const updateItems = () => {
             });
             return response.data; // Phản hồi từ BE
         } catch (error) {
-            throw new Error('Failed to decrement item.');
+            throw error.response.data;
         }
     }
     return {incItems, decItems};
@@ -90,8 +87,8 @@ export const removeCartItem = () => {
                 data: { productId },
             });
             return response.data;
-        } catch (err) {
-            throw new Error('Failed to remove item.');
+        } catch (error) {
+            throw error.response.data;
         }
     }
     return {removeItem};

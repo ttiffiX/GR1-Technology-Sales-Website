@@ -81,7 +81,8 @@ const Profile = () => {
                         <label>Phone</label>
                         {isEditing ? (
                             <input
-                                type="text"
+                                type="number"
+                                maxLength={10}
                                 name="phone"
                                 value={editedUser.phone}
                                 onChange={handleChange}
