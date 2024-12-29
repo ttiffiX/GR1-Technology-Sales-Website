@@ -3,8 +3,10 @@ import './Order.scss';
 import Nav from "../../components/navigation/Nav";
 import Header from "../../components/header/Header";
 import {getCartItems} from "../../api/CartAPI";
+import {useToast} from "../../components/Toast/Toast";
 
 const Order = () => {
+    const {triggerToast} = useToast();
     const {cartItems, totalQuantity} = getCartItems();
 
     const formatPrice = (price) => {
@@ -26,6 +28,8 @@ const Order = () => {
         console.log("Phone:", formData.phone);
         console.log("Address:", formData.address);
         console.log("Place order successfully!");
+
+        triggerToast("success", "Place order successfully!");
     };
 
     const [profile, setProfile] = useState({
@@ -80,12 +84,13 @@ const Order = () => {
                         <div className={"inputContainer"}>
                             <label>Phone:</label>
                             <input
-                                type="number"
-                                maxLength={10}
+                                type="tel"
+                                maxLength={11}
                                 name="phone"
                                 value={formData.phone}
                                 onChange={handleChange}
                                 placeholder="Phone"
+                                pattern="^0[0-9]{9,10}$"
                                 required
                             />
                         </div>
@@ -127,7 +132,6 @@ const Order = () => {
                                 </div>
                             ))}
                         </div>
-                        {/*<button type="submit">Place Order</button>*/}
                     </div>
                 </div>
             ) : (
