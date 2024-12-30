@@ -4,10 +4,12 @@ import Nav from "../../components/navigation/Nav";
 import Header from "../../components/header/Header";
 import {getCartItems} from "../../api/CartAPI";
 import {useToast} from "../../components/Toast/Toast";
+import {PlaceOrder} from "../../api/OrderAPI";
 
 const Order = () => {
     const {triggerToast} = useToast();
     const {cartItems, totalQuantity} = getCartItems();
+    const {getInfoOrders} = PlaceOrder();
 
     const formatPrice = (price) => {
         return new Intl.NumberFormat('vi-VN').format(price) + ' đ'; // Định dạng giá theo kiểu Việt Nam
@@ -21,15 +23,20 @@ const Order = () => {
         }
     };
 
-    const handlePlaceOrder = (e) => {
+    const handlePlaceOrder = async (e) => {
         e.preventDefault();
         // Thực hiện logic đặt hàng ở đây (gửi dữ liệu đến server hoặc xử lý local)
         console.log("Name:", formData.name);
         console.log("Phone:", formData.phone);
         console.log("Address:", formData.address);
-        console.log("Place order successfully!");
+        try{
+            const response = await getInfoOrders(formData.name, formData.phone, formData.address);
+            console.log(response);
+            triggerToast("success", "Place order successfully!");
+        }catch (err){
+            triggerToast("error", "An error occurred.");
+        }
 
-        triggerToast("success", "Place order successfully!");
     };
 
     const [profile, setProfile] = useState({

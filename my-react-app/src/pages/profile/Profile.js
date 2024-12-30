@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import "./Profile.scss";  // Chúng ta sẽ tạo file SCSS sau
-import avatarIcon from "../../assets/icon/ava.ico";
+import avatarIcon from "../../assets/icon/img.png";
 import Nav from "../../components/navigation/Nav";
 import {getCartItems} from "../../api/CartAPI";
 
