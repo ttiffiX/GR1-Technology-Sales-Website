@@ -2,13 +2,15 @@ import CartClicked from "../../utils/CartClicked";
 import React, {useState} from "react";
 import "./Nav.scss"
 import {Link, useNavigate} from "react-router-dom";
-import avatarIcon from "../../assets/icon/ava.ico";
+import avatarIcon from "../../assets/icon/img.png";
 
 function Nav({count}) {
     // Trạng thái đăng nhập và thông tin người dùng
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
     const [userName, setUserName] = useState("");
-    const [userAvatar, setUserAvatar] = useState("");
+    // const [userAvatar, setUserAvatar] = useState("");
+    const [userAvatar, setUserAvatar] = useState(avatarIcon);
     const navigate = useNavigate();
 
     // Xử lý đăng nhập (demo)
@@ -18,7 +20,7 @@ function Nav({count}) {
         setUserName("John Doe"); // Gán tên user tạm thời
         setIsLoggedIn(true);
         setUserAvatar(avatarIcon); // Link demo ảnh đại diện
-        navigate("/login");
+        // navigate("/login");
     };
 
     // Xử lý đăng xuất
@@ -29,6 +31,10 @@ function Nav({count}) {
 
     function handleProfile() {
         navigate("/profile");
+    }
+
+    function handlePlacedOrder(){
+        navigate("/placedorder")
     }
 
     return (
@@ -45,6 +51,7 @@ function Nav({count}) {
                     <div className="dropdown-menu">
                         {/*<Link to="/profile">My Profile</Link>*/}
                         <button onClick={handleProfile}>My Profile</button>
+                        <button onClick={handlePlacedOrder}>Placed Orders</button>
                         <button onClick={handleLogout}>Logout</button>
                     </div>
                 </div>

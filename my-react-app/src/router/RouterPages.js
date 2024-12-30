@@ -8,6 +8,7 @@ import AboutMe from "../pages/aboutme/AboutMe";
 import Cart from "../pages/Cart/Cart";
 import Profile from "../pages/profile/Profile";
 import Order from "../pages/order/Order";
+import PlacedOrder from "../pages/placedorder/PlacedOrder";
 
 
 function RouterPages() {
@@ -24,6 +25,7 @@ function RouterPages() {
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/profile" element={<Profile/>}/>
                 <Route path="/checkout" element={<Order/>}/>
+                <Route path="/placedorder" element={<PlacedOrder/>}/>
             </Routes>
         </Router>
     );
