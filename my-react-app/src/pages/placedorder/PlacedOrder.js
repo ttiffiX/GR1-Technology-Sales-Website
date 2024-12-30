@@ -33,9 +33,9 @@ const PlacedOrder = () => {
                 return order;
             }));
             // window.location.reload();
-            triggerToast("success", "Place order successfully!");
+            triggerToast("success", response);
         } catch (err) {
-            triggerToast("error", "An error occurred.");
+            triggerToast("error", err);
         }
     };
 

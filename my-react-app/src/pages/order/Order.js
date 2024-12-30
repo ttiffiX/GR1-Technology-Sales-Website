@@ -32,9 +32,9 @@ const Order = () => {
         try{
             const response = await getInfoOrders(formData.name, formData.phone, formData.address);
             console.log(response);
-            triggerToast("success", "Place order successfully!");
+            triggerToast("success", response);
         }catch (err){
-            triggerToast("error", "An error occurred.");
+            triggerToast("error", err);
         }
 
     };
