@@ -1,20 +1,42 @@
 // PlacedOrder.js
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './PlacedOrder.scss';
 import Nav from "../../components/navigation/Nav";
 import {getCartItems} from "../../api/CartAPI";
 import Header from "../../components/header/Header";
-import {getOrders} from "../../api/OrderAPI";
+import {getOrders, useCancelOrder} from "../../api/OrderAPI";
+import {useToast} from "../../components/Toast/Toast";
+
 
 const PlacedOrder = () => {
     const {totalQuantity} = getCartItems();
-    const {orders, orderDetails, loading, error} = getOrders();
+    const {orders: initialOrders, orderDetails, loading, error} = getOrders();
+    const {cancelOrder} = useCancelOrder();
+    const {triggerToast} = useToast();
+    const [orders, setOrders] = useState(initialOrders);
+
+    useEffect(() => {
+        setOrders(initialOrders); // Khi `initialOrders` thay đổi, cập nhật lại `orders`
+    }, [initialOrders]);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
-    const handleCancelOrder = () => {
-        console.log("Order cancelled");
+    const handleCancelOrder = async (orderId) => {
+        try {
+            const response = await cancelOrder(orderId);
+            console.log(response);
+            setOrders(orders.map(order => {
+                if (order.order_id === orderId) {
+                    return { ...order, status: 'canceled' }; // Cập nhật trạng thái thành canceled
+                }
+                return order;
+            }));
+            // window.location.reload();
+            triggerToast("success", "Place order successfully!");
+        } catch (err) {
+            triggerToast("error", "An error occurred.");
+        }
     };
 
     const formatPrice = (price) => {
@@ -61,9 +83,14 @@ const PlacedOrder = () => {
                             <div className="order-summary">
                                 <p>Total Price: <strong>{formatPrice(order.totalPrice)}</strong></p>
                                 <p>Status: <strong>{order.status}</strong></p>
-                                <button className="cancel-order-button" onClick={handleCancelOrder}>
-                                    Cancel Order
-                                </button>
+                                {order.status === "canceled" ? (
+                                    <div/>
+                                ) : (
+                                    <button className="cancel-order-button"
+                                            onClick={() => handleCancelOrder(order.order_id)}>
+                                        Cancel Order
+                                    </button>
+                                )}
                             </div>
                         </div>
                     );

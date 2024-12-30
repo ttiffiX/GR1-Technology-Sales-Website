@@ -28,8 +28,8 @@ export const getOrders = () => {
 };
 
 export const fetchOrders = async () => {
-        const response = await axios.get(`${BASE_URL}`)
-        return response.data;
+    const response = await axios.get(`${BASE_URL}`)
+    return response.data;
 }
 
 export const PlaceOrder = () => {
@@ -49,4 +49,18 @@ export const PlaceOrder = () => {
         }
     };
     return {getInfoOrders, loading};
+}
+
+export const useCancelOrder = () => {
+    const cancelOrder = async (orderId) => {
+        try {
+            const response = await axios.put(`${BASE_URL}/cancel`, {
+                orderId
+            });
+            return response.data;
+        } catch (err) {
+            throw err.response.data;
+        }
+    }
+    return {cancelOrder};
 }
