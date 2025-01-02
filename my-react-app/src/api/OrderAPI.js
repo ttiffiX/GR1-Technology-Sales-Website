@@ -35,11 +35,11 @@ export const fetchOrders = async () => {
 export const PlaceOrder = () => {
     const [loading, setLoading] = useState(false);
 
-    const getInfoOrders = async (name, phone, address) => {
+    const getInfoOrders = async (name, phone, address, paymentMethod) => {
         setLoading(true);
         try {
             const response = await axios.post(`${BASE_URL}/add`, {
-                name, phone, address,
+                name, phone, address, paymentMethod
             });
             return response.data;
         } catch (err) {

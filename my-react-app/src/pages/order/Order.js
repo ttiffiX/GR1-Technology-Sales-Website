@@ -12,7 +12,12 @@ const Order = () => {
     const {cartItems, totalQuantity} = getCartItems();
     const {getInfoOrders} = PlaceOrder();
     const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+    const [paymentMethod, setPaymentMethod] = useState("Card");
     const navigate = useNavigate();
+
+    const handlePaymentChange = (e) => {
+        setPaymentMethod(e.target.value);
+    };
 
     const formatPrice = (price) => {
         return new Intl.NumberFormat('vi-VN').format(price) + ' đ'; // Định dạng giá theo kiểu Việt Nam
@@ -31,15 +36,8 @@ const Order = () => {
         console.log("Name:", formData.name);
         console.log("Phone:", formData.phone);
         console.log("Address:", formData.address);
+        console.log("Payment Method:", paymentMethod);
         setShowConfirmPopup(true);
-        // try{
-        //     const response = await getInfoOrders(formData.name, formData.phone, formData.address);
-        //     console.log(response);
-        //     triggerToast("success", response);
-        // }catch (err){
-        //     triggerToast("error", err);
-        // }
-
     };
 
     const [profile, setProfile] = useState({
@@ -75,7 +73,7 @@ const Order = () => {
     const handleConfirm = async () => {
         // setShowConfirmPopup(true);
         try{
-            const response = await getInfoOrders(formData.name, formData.phone, formData.address);
+            const response = await getInfoOrders(formData.name, formData.phone, formData.address, paymentMethod);
             console.log(response);
             triggerToast("success", response);
             setShowConfirmPopup(false);
@@ -143,6 +141,33 @@ const Order = () => {
                                 required
                             />
                         </div>
+                        <div className={"inputContainer"}>
+                            <label>Payment Method:</label>
+                            <div className="payment-method">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="paymentMethod"
+                                        value="Card"
+                                        checked={paymentMethod === "Card"}
+                                        onChange={handlePaymentChange}
+                                    />
+                                    Card
+                                </label>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="paymentMethod"
+                                        value="Cash"
+                                        checked={paymentMethod === "Cash"}
+                                        onChange={handlePaymentChange}
+                                    />
+                                    Cash
+                                </label>
+                            </div>
+                        </div>
+
+
                         {/*</form>*/}
                         <div className={"checkout-order"}>
                             <div className={"totalPrice"}>
@@ -163,7 +188,7 @@ const Order = () => {
                                     <div className="cart-pic"
                                          style={{backgroundImage: `url(${getImage(item.image)})`}}></div>
                                     <div className={"details"}>
-                                        <h3>{item.name}</h3>
+                                    <h3>{item.name}</h3>
                                         <p>Price: {formatPrice(item.price)}</p>
                                         <p>Quantity: {item.quantity}</p>
                                     </div>
