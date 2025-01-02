@@ -5,11 +5,14 @@ import Header from "../../components/header/Header";
 import {getCartItems} from "../../api/CartAPI";
 import {useToast} from "../../components/Toast/Toast";
 import {PlaceOrder} from "../../api/OrderAPI";
+import {useNavigate} from "react-router-dom";
 
 const Order = () => {
     const {triggerToast} = useToast();
     const {cartItems, totalQuantity} = getCartItems();
     const {getInfoOrders} = PlaceOrder();
+    const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+    const navigate = useNavigate();
 
     const formatPrice = (price) => {
         return new Intl.NumberFormat('vi-VN').format(price) + ' đ'; // Định dạng giá theo kiểu Việt Nam
@@ -25,17 +28,17 @@ const Order = () => {
 
     const handlePlaceOrder = async (e) => {
         e.preventDefault();
-        // Thực hiện logic đặt hàng ở đây (gửi dữ liệu đến server hoặc xử lý local)
         console.log("Name:", formData.name);
         console.log("Phone:", formData.phone);
         console.log("Address:", formData.address);
-        try{
-            const response = await getInfoOrders(formData.name, formData.phone, formData.address);
-            console.log(response);
-            triggerToast("success", response);
-        }catch (err){
-            triggerToast("error", err);
-        }
+        setShowConfirmPopup(true);
+        // try{
+        //     const response = await getInfoOrders(formData.name, formData.phone, formData.address);
+        //     console.log(response);
+        //     triggerToast("success", response);
+        // }catch (err){
+        //     triggerToast("error", err);
+        // }
 
     };
 
@@ -65,8 +68,36 @@ const Order = () => {
         setFormData({...formData, [name]: value});
     };
 
+    const handleCancel = () => {
+        setShowConfirmPopup(false);
+    }
+
+    const handleConfirm = async () => {
+        // setShowConfirmPopup(true);
+        try{
+            const response = await getInfoOrders(formData.name, formData.phone, formData.address);
+            console.log(response);
+            triggerToast("success", response);
+            setShowConfirmPopup(false);
+            navigate("/placedorder")
+        }catch (err){
+            triggerToast("error", err);
+        }
+    }
+
     return (
         <>
+            {showConfirmPopup && (
+                <div className="confirm-popup">
+                    <div className="popup-content">
+                        <p>Are you sure you want to place order?</p>
+                        <div className="popup-actions">
+                            <button onClick={handleConfirm}>Yes</button>
+                            <button onClick={handleCancel}>No</button>
+                        </div>
+                    </div>
+                </div>
+            )}
             <Nav count={totalQuantity}/>;
             <Header
                 title="Order"
