@@ -28,7 +28,7 @@ const PlacedOrder = () => {
             console.log(response);
             setOrders(orders.map(order => {
                 if (order.order_id === orderId) {
-                    return { ...order, status: 'canceled' }; // Cập nhật trạng thái thành canceled
+                    return {...order, status: 'canceled'}; // Cập nhật trạng thái thành canceled
                 }
                 return order;
             }));
@@ -83,13 +83,13 @@ const PlacedOrder = () => {
                             <div className="order-summary">
                                 <p>Total Price: <strong>{formatPrice(order.totalPrice)}</strong></p>
                                 <p>Status: <strong>{order.status}</strong></p>
-                                {order.status === "canceled" ? (
-                                    <div/>
-                                ) : (
+                                {order.status === "pending" ? (
                                     <button className="cancel-order-button"
                                             onClick={() => handleCancelOrder(order.order_id)}>
                                         Cancel Order
                                     </button>
+                                ) : (
+                                    <div/>
                                 )}
                             </div>
                         </div>
