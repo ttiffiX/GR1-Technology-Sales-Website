@@ -19,11 +19,11 @@ function ProductGrid({products, count}) {
     return (
         <div className="product-grid">
             {products.map((product) => (
-                <div className={`product-item ${product.stocked ? '' : 'out-of-stock'}`} key={product.product_id}>
+                <div className={`product-item ${product.stocked ? '' : 'out-of-stock'}`} key={product.productId}>
                     <div className="pic" style={{backgroundImage: `url(${getImage(product.image)})`}}></div>
                     <div className="techName">{product.name}</div>
                     <div className="price">{formatPrice(product.price)}</div>
-                    <AddToCart product_id={product.product_id} count={count} stocked={product.stocked}/>
+                    <AddToCart productId={product.productId} count={count} stocked={product.stocked}/>
                 </div>
             ))}
         </div>

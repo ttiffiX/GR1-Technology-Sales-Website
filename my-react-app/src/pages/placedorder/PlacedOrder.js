@@ -27,7 +27,7 @@ const PlacedOrder = () => {
             const response = await cancelOrder(orderId);
             console.log(response);
             setOrders(orders.map(order => {
-                if (order.order_id === orderId) {
+                if (order.orderId === orderId) {
                     return {...order, status: 'canceled'}; // Cập nhật trạng thái thành canceled
                 }
                 return order;
@@ -61,10 +61,10 @@ const PlacedOrder = () => {
             <div className="placed-order-container">
                 {orders.map((order) => {
                     // Lọc ra các orderDetails có order_id trùng với order.orderId
-                    const orderItems = orderDetails.filter((item) => item.orderId === order.order_id);
+                    const orderItems = orderDetails.filter((item) => item.orderId === order.orderId);
 
                     return (
-                        <div className="outer-grid" key={order.order_id}>
+                        <div className="outer-grid" key={order.orderId}>
                             <div className="inner-grid">
                                 {orderItems.map((item) => (
                                     <div className="product-card" key={item.orderDetailId}>
@@ -85,7 +85,7 @@ const PlacedOrder = () => {
                                 <p>Status: <strong>{order.status}</strong></p>
                                 {order.status === "pending" ? (
                                     <button className="cancel-order-button"
-                                            onClick={() => handleCancelOrder(order.order_id)}>
+                                            onClick={() => handleCancelOrder(order.orderId)}>
                                         Cancel Order
                                     </button>
                                 ) : (

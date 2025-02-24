@@ -3,7 +3,7 @@ import {useToast} from "../components/Toast/Toast";
 import {addCartItem, fetchCartItems} from "../api/CartAPI";
 
 
-function AddToCart({product_id, count, stocked}) {
+function AddToCart({productId, count, stocked}) {
 
     const maxCart = 10;
     const {triggerToast} = useToast();
@@ -24,7 +24,7 @@ function AddToCart({product_id, count, stocked}) {
             if (totalQuantity >= maxCart) {
                 triggerToast("error", "Too muchhhh!!!");
             } else {
-                const response = await addItem(product_id, 1); // Gửi request với số lượng = 1
+                const response = await addItem(productId, 1); // Gửi request với số lượng = 1
                 console.log(response);
 
                 if (response) {

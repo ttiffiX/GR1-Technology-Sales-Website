@@ -57,13 +57,13 @@ function CartGrid({products, count}) {
         }
     };
 
-    const handleIncrease = async (product_id) => {
+    const handleIncrease = async (productId) => {
         try {
             const {totalQuantity} = await fetchCartItems();
             if (totalQuantity >= maxCart) {
                 triggerToast("error", "Too muchhhh!!!")
             } else {
-                const response = await incItems(product_id, 1); // Gửi request với số lượng = 1
+                const response = await incItems(productId, 1); // Gửi request với số lượng = 1
                 console.log(response);
 
                 if (response) {
@@ -119,10 +119,10 @@ function CartGrid({products, count}) {
         setShowConfirmPopup(false);
     }
 
-    const handleDelete = async (product_id) => {
+    const handleDelete = async (productId) => {
         try {
-            console.log(product_id)
-            const response = await removeItem(product_id);
+            console.log(productId)
+            const response = await removeItem(productId);
             console.log(response);
             if (response) {
                 triggerToast("success", response);
